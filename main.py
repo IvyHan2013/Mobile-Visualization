@@ -53,6 +53,9 @@ main_widget_kv = '''
 #:import MDThemePicker kivymd.theme_picker.MDThemePicker
 #:import MDBottomNavigation kivymd.tabs.MDBottomNavigation
 #:import MDBottomNavigationItem kivymd.tabs.MDBottomNavigationItem
+#:import Toolbar kivymd.toolbar.Toolbar
+
+#:import MapSource mapview.MapSource
 
 NavigationLayout:
     id: nav_layout
@@ -220,10 +223,44 @@ NavigationLayout:
                     MDTab:
                         name: 'map'
                         text: 'Map'
-                        MDLabel:
-                            font_style: 'Body1'
-                            theme_text_color: 'Primary'
-                            text: "The map should be shown here"
+
+                        MapView:
+                            id: mapview
+                            lat: 50.6394
+                            lon: 3.057
+                            zoom: 8
+                            #size_hint: .5, .5
+                            #pos_hint: {"x": .25, "y": .25}
+
+                            #on_map_relocated: mapview2.sync_to(self)
+                            #on_map_relocated: mapview3.sync_to(self)
+
+                            MapMarker:
+                                lat: 50.6394
+                                lon: 3.057
+
+                            MapMarker
+                                lat: -33.867
+                                lon: 151.206
+
+                        Toolbar:
+                            id: maptoolbar
+                            md_bg_color: app.theme_cls.primary_color
+                            background_palette: 'Primary'
+                            background_hue: '500'
+                            title: 'None'
+
+                            MDLabel:
+                                text: "Longitude: {}".format(mapview.lon)
+                                theme_text_color: 'Primary'
+                                font_style:"Body2"
+                                height: self.texture_size[1] + dp(40)
+                            MDLabel:
+                                text: "Latitude: {}".format(mapview.lat)
+                                theme_text_color: 'Primary'
+                                font_style:"Body2"
+                                height: self.texture_size[1] + dp(40)
+                                
             Screen:
                 name: 'dataplane'
             Screen:
@@ -373,7 +410,22 @@ NavigationLayout:
                         ThreeLineListItem:
                             text: "Three-line item"
                             secondary_text: "This is a multi-line label where you can fit more text than usual"
-                        
+                        OneLineAvatarListItem:
+                            text: "Single-line item with avatar"
+                            AvatarSampleWidget:
+                                source: './assets/avatar.png'
+                        TwoLineAvatarListItem:
+                            type: "two-line"
+                            text: "Two-line item..."
+                            secondary_text: "with avatar"
+                            AvatarSampleWidget:
+                                source: './assets/avatar.png'
+                        ThreeLineAvatarListItem:
+                            type: "three-line"
+                            text: "Three-line item..."
+                            secondary_text: "...with avatar..." + '\\n' + "and third line!"
+                            AvatarSampleWidget:
+                                source: './assets/avatar.png'
                         OneLineIconListItem:
                             text: "Single-line item with left icon"
                             IconLeftSampleWidget:
@@ -391,7 +443,23 @@ NavigationLayout:
                             IconLeftSampleWidget:
                                 id: li_icon_3
                                 icon: 'sd'
-                        
+                        OneLineAvatarIconListItem:
+                            text: "Single-line + avatar&icon"
+                            AvatarSampleWidget:
+                                source: './assets/avatar.png'
+                            IconRightSampleWidget:
+                        TwoLineAvatarIconListItem:
+                            text: "Two-line item..."
+                            secondary_text: "...with avatar&icon"
+                            AvatarSampleWidget:
+                                source: './assets/avatar.png'
+                            IconRightSampleWidget:
+                        ThreeLineAvatarIconListItem:
+                            text: "Three-line item..."
+                            secondary_text: "...with avatar&icon..." + '\\n' + "and third line!"
+                            AvatarSampleWidget:
+                                source: './assets/avatar.png'
+                            IconRightSampleWidget:
             Screen:
                 name: 'progressbars'
                 BoxLayout:
@@ -406,7 +474,6 @@ NavigationLayout:
 
                     MDProgressBar:
                         value: progress_slider.value
-                        
                     MDProgressBar:
                         reversed: True
                         value: progress_slider.value
@@ -420,7 +487,54 @@ NavigationLayout:
                         MDProgressBar:
                             orientation:"vertical"
                             value: progress_slider.value
-          
+            Screen:
+                name: 'textfields'
+                ScrollView:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: dp(48)
+                        spacing: 10
+                        MDTextField:
+                            hint_text: "No helper text"
+                        MDTextField:
+                            hint_text: "Helper text on focus"
+                            helper_text: "This will disappear when you click off"
+                            helper_text_mode: "on_focus"
+                        MDTextField:
+                            hint_text: "Persistent helper text"
+                            helper_text: "Text is always here"
+                            helper_text_mode: "persistent"
+                        MDTextField:
+                            id: text_field_error
+                            hint_text: "Helper text on error (Hit Enter with two characters here)"
+                            helper_text: "Two is my least favorite number"
+                            helper_text_mode: "on_error"
+                        MDTextField:
+                            hint_text: "Max text length = 10"
+                            max_text_length: 10
+                        MDTextField:
+                            hint_text: "required = True"
+                            required: True
+                            helper_text_mode: "on_error"
+                        MDTextField:
+                            multiline: True
+                            hint_text: "Multi-line text"
+                            helper_text: "Messages are also supported here"
+                            helper_text_mode: "persistent"
+                        MDTextField:
+                            hint_text: "color_mode = \'accent\'"
+                            color_mode: 'accent'
+                        MDTextField:
+                            hint_text: "color_mode = \'custom\'"
+                            color_mode: 'custom'
+                            helper_text_mode: "on_focus"
+                            helper_text: "Color is defined by \'line_color_focus\' property"
+                            line_color_focus: self.theme_cls.opposite_bg_normal  # This is the color used by the textfield
+                        MDTextField:
+                            hint_text: "disabled = True"
+                            disabled: True
 
             Screen:
                 name: 'theming'
@@ -497,7 +611,11 @@ class KitchenSink(App):
 
     def build(self):
         main_widget = Builder.load_string(main_widget_kv)
-        
+        # self.theme_cls.theme_style = 'Dark'
+
+        main_widget.ids.text_field_error.bind(
+            on_text_validate=self.set_error_message,
+            on_focus=self.set_error_message)
         return main_widget
 
     def get_time_picker_data(self, instance, time):
@@ -528,6 +646,12 @@ class KitchenSink(App):
                 MDDatePicker(self.set_previous_date).open()
         else:
             MDDatePicker(self.set_previous_date).open()
+
+    def set_error_message(self, *args):
+        if len(self.root.ids.text_field_error.text) == 2:
+            self.root.ids.text_field_error.error = True
+        else:
+            self.root.ids.text_field_error.error = False
 
     def on_pause(self):
         return True
