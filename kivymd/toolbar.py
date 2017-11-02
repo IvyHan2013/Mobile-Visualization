@@ -24,6 +24,7 @@ Builder.load_string('''
         size_hint_x: None
         padding: [0, (self.height - dp(48))/2]
     BoxLayout:
+        id: center_actions
         padding: dp(12), 0
         MDLabel:
             font_style: 'Title'
@@ -97,3 +98,11 @@ class Toolbar(ThemableBehavior, RectangularElevationBehavior,
             child.text_color = self.specific_text_color
         for child in self.ids['right_actions'].children:
             child.text_color = self.specific_text_color
+
+    def on_title(self, instance, value):
+        if value=='None':
+            self.title = '  Location:'
+            self.ids['left_actions'].padding = 0, 0
+            self.ids['center_actions'].padding = 0, 0
+            self.ids['center_actions'].width = 0
+            self.ids['right_actions'].padding = 0, 0
