@@ -224,43 +224,70 @@ NavigationLayout:
                         name: 'map'
                         text: 'Map'
 
-                        MapView:
-                            id: mapview
-                            lat: 50.6394
-                            lon: 3.057
-                            zoom: 8
-                            #size_hint: .5, .5
-                            #pos_hint: {"x": .25, "y": .25}
+                        
+                            
 
-                            #on_map_relocated: mapview2.sync_to(self)
-                            #on_map_relocated: mapview3.sync_to(self)
+                        RelativeLayout:
+                            MapView:
+                                id: mapview
+                                lat: 34.0605645
+                                lon: -118.4571973
+                                zoom: 15
+                                #size_hint: .5, .5
+                                #pos_hint: {"x": .25, "y": .25}
 
-                            MapMarker:
-                                lat: 50.6394
-                                lon: 3.057
+                                #on_map_relocated: mapview2.sync_to(self)
+                                #on_map_relocated: mapview3.sync_to(self)
 
-                            MapMarker
-                                lat: -33.867
-                                lon: 151.206
+                                MapMarker:
+                                    lat: 34.0605645
+                                    lon: -118.4571973
 
-                        Toolbar:
-                            id: maptoolbar
-                            md_bg_color: app.theme_cls.primary_color
-                            background_palette: 'Primary'
-                            background_hue: '500'
-                            title: 'None'
+                                MapMarker
+                                    lat: -33.867
+                                    lon: 151.206
+
+                            Toolbar:
+                                id: maptoolbar
+                                md_bg_color: app.theme_cls.primary_color
+                                background_palette: 'Primary'
+                                background_hue: '500'
+                                title: 'None'
+
+                                MDLabel:
+                                    text: "Longitude: {}".format(mapview.lon)
+                                    theme_text_color: 'Primary'
+                                    font_style:"Body2"
+                                    height: self.texture_size[1] + dp(40)
+                                MDLabel:
+                                    text: "Latitude: {}".format(mapview.lat)
+                                    theme_text_color: 'Primary'
+                                    font_style:"Body2"
+                                    height: self.texture_size[1] + dp(40)
+
+                        BoxLayout:
+                            id: map_text
+                            orientation: 'vertical'
+                            padding: self.height/20.
 
                             MDLabel:
-                                text: "Longitude: {}".format(mapview.lon)
-                                theme_text_color: 'Primary'
+                                canvas.before:
+                                    Color:
+                                        rgba: .2, .2, .2, .6
+                                    Rectangle:
+                                        pos: self.center[0]/2., self.height
+                                        size: self.center[0], self.height/20.
+
+                                text: "Signal Strength"
+                                theme_text_color: 'Custom'
+                                text_color: (1,1,1,1.0)
                                 font_style:"Body2"
-                                height: self.texture_size[1] + dp(40)
-                            MDLabel:
-                                text: "Latitude: {}".format(mapview.lat)
-                                theme_text_color: 'Primary'
-                                font_style:"Body2"
-                                height: self.texture_size[1] + dp(40)
-                                
+                                halign: 'center'
+                                valign: 'top'
+                                text_size: self.size
+
+
+
             Screen:
                 name: 'dataplane'
             Screen:
