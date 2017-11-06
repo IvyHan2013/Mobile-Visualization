@@ -1,0 +1,8 @@
+install buildozer: http://buildozer.readthedocs.io/en/latest/installation.html
+
+navigate to your project directory and run:
+$ buildozer init
+edit buildozer.spec
+$ buildozer android debug deploy run
+
+$ adb install MyApkName.apk
