@@ -155,21 +155,66 @@ NavigationLayout:
                                         font_style:"Caption"
                                         size_hint_y: None
                                         halign: 'center'
-                                        height: self.texture_size[1] + dp(64)
+                                        height: self.texture_size[1] + dp(6)
                                     MDLabel:
                                         text: 'RSRP'
                                         theme_text_color: 'Primary'
                                         font_style:"Caption"
                                         size_hint_y: None
                                         halign: 'center'
-                                        height: self.texture_size[1] + dp(64)
+                                        height: self.texture_size[1] + dp(6)
                                     MDLabel:
                                         text: 'RSRQ'
                                         theme_text_color: 'Primary'
                                         font_style:"Caption"
                                         size_hint_y: None
                                         halign: 'center'
-                                        height: self.texture_size[1] + dp(64)
+                                        height: self.texture_size[1] + dp(6)
+                                BoxLayout:
+                                    size_hint_y: None
+                                    MDLabel:
+                                        text: '-90dbm'
+                                        theme_text_color: 'Primary'
+                                        font_style:"Body2"
+                                        size_hint_y: None
+                                        halign: 'center'
+                                        height: self.texture_size[1]+ dp(6)
+                                    MDLabel:
+                                        text: '-74dbm'
+                                        theme_text_color: 'Primary'
+                                        font_style:"Body2"
+                                        size_hint_y: None
+                                        halign: 'center'
+                                        height: self.texture_size[1]+ dp(6)
+                                    MDLabel:
+                                        text: '-4'
+                                        theme_text_color: 'Primary'
+                                        font_style:"Body2"
+                                        size_hint_y: None
+                                        halign: 'center'
+                                        height: self.texture_size[1]+dp(6)
+                                BoxLayout:
+                                    size_hint_y: None
+                                    MDProgressBar:
+                                        value:22.2
+                                        halign: 'center'
+                                        rgbr: '0000FF'
+
+                                    MDProgressBar:
+                                        value:66.7
+                                        halign: 'center'
+                                        rgbr: '0000FF'
+                                    
+                                    MDProgressBar:
+                                        value:94
+                                        halign: 'center'
+                                        rgbr: '0000FF'
+                               
+                                   
+                                     
+                                    
+                                    
+                                    
                                 BoxLayout:
                                     size_hint_y: None
                                     MDLabel:
@@ -186,6 +231,18 @@ NavigationLayout:
                                         size_hint_y: None
                                         halign: 'center'
                                         height: self.texture_size[1] + dp(64)
+                                # BoxLayout:
+                                #     size_hint_y: None
+                                #     MDProgressBar:
+                                #         value:10
+                                #         halign: 'center'
+                                #         rgbr: '0000FF'
+
+                                #     MDProgressBar:
+                                #         value:90
+                                #         halign: 'center'
+                                #         rgbr: '0000FF'
+        
                                 MDSeparator:
                                     height: dp(1)
                                 MDLabel:
@@ -224,28 +281,25 @@ NavigationLayout:
                         name: 'map'
                         text: 'Map'
 
-                        
-                            
-
                         RelativeLayout:
                             MapView:
                                 id: mapview
                                 lat: 34.0605645
                                 lon: -118.4571973
                                 zoom: 15
-                                #size_hint: .5, .5
-                                #pos_hint: {"x": .25, "y": .25}
+                                # size_hint: .5, .5
+                                # pos_hint: {"x": .25, "y": .25}
 
-                                #on_map_relocated: mapview2.sync_to(self)
-                                #on_map_relocated: mapview3.sync_to(self)
+                                # on_map_relocated: mapview2.sync_to(self)
+                                # on_map_relocated: mapview3.sync_to(self)
 
-                                MapMarker:
-                                    lat: 34.0605645
-                                    lon: -118.4571973
+                                # MapMarker:
+                                #     lat: 34.0605645
+                                #     lon: -118.4571973
 
-                                MapMarker
-                                    lat: -33.867
-                                    lon: 151.206
+                                # MapMarker
+                                #     lat: -33.867
+                                #     lon: 151.206
 
                             Toolbar:
                                 id: maptoolbar
@@ -285,8 +339,6 @@ NavigationLayout:
                                 halign: 'center'
                                 valign: 'top'
                                 text_size: self.size
-
-
 
             Screen:
                 name: 'dataplane'

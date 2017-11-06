@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from kivy.lang import Builder
-from kivy.properties import ListProperty, OptionProperty, BooleanProperty
+from kivy.properties import ListProperty, OptionProperty, BooleanProperty,NumericProperty,StringProperty
 from kivy.utils import get_color_from_hex
 from kivymd.color_definitions import colors
 from kivymd.theming import ThemableBehavior
@@ -9,35 +9,76 @@ from kivy.uix.progressbar import ProgressBar
 
 
 Builder.load_string('''
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import MDLabel kivymd.label.MDLabel
 <MDProgressBar>:
     canvas:
         Clear
         Color:
             rgba:  self.theme_cls.divider_color
         Rectangle:
-            size:    (self.width , dp(4)) if self.orientation == 'horizontal' else (dp(4),self.height) 
-            pos:   (self.x, self.center_y - dp(4)) if self.orientation == 'horizontal' \
-                else (self.center_x - dp(4),self.y)
+            size:    (self.width*0.6, dp(18)) if self.orientation == 'horizontal' else (dp(18),self.height-dp(8)) 
+            pos:   (self.x+self.width*0.2, self.center_y + dp(54)) if self.orientation == 'horizontal' \
+                else (self.center_x + dp(24),self.y)
         
             
         Color:
-            rgba:  self.theme_cls.primary_color
+            #rgba:  self.theme_cls. primary_color 
+            #rgba:  self.get_color() if self.test else self.theme_cls. primary_color 
+            rgba:  get_color_from_hex(self.rgbr)
         Rectangle:
-            size:     (self.width*self.value_normalized, sp(4)) if self.orientation == 'horizontal' else (sp(4), \
+            size:     (self.width*self.value_normalized*0.6, sp(18)) if self.orientation == 'horizontal' else (sp(18), \
                 self.height*self.value_normalized)
-            pos:    (self.width*(1-self.value_normalized)+self.x if self.reversed else self.x, self.center_y - dp(4)) \
+                #self.width*(1-self.value_normalized)+self.x      
+            pos:    (self.width*0.6*(1-self.value_normalized)+self.x+self.width*0.2 if self.reversed else self.x+self.width*0.2, self.center_y + dp(54)) \
                 if self.orientation == 'horizontal' else \
-                (self.center_x - dp(4),self.height*(1-self.value_normalized)+self.y if self.reversed else self.y)
-        
+                (self.center_x + dp(24),self.height*(1-self.value_normalized)+self.y if self.reversed else self.y)
 ''')
 
 
 class MDProgressBar(ThemableBehavior, ProgressBar):
     reversed = BooleanProperty(False)
     ''' Reverse the direction the progressbar moves. '''
-    
     orientation = OptionProperty('horizontal', options=['horizontal', 'vertical'])
     ''' Orientation of progressbar'''
+    rgbr = StringProperty("FF0000")
+    test = BooleanProperty(False)
+    #rgbr = OptionProperty('FF0000', 
+        #options=['FF0000','00FF00','0000FF'])
+    alpha =NumericProperty(.9)
+    
+
+    def on_rgbr(self,instance,value):
+        # self.rgbr = value
+        # print "on_rgbr"
+        #print self.rgbr
+        r1,r2=153,255
+        g1,g2=255,0
+        b1,b2=0,0
+        r=int((r1*self.value+r2*(100-self.value))/100)
+        g=int((g1*self.value+g2*(100-self.value))/100)
+        b=int((b1*self.value+b2*(100-self.value))/100)
+        
+        self.rgbr= hex(r)[2:].zfill(2)+hex(g)[2:].zfill(2)+hex(b)[2:].zfill(2)
+    def on_value(self,instance,value):
+        r1,r2=255,153
+        g1,g2=0,255
+        b1,b2=0,0
+        r=int((r1*self.value+r2*(100-self.value))/100)
+        g=int((g1*self.value+g2*(100-self.value))/100)
+        b=int((b1*self.value+b2*(100-self.value))/100)
+        
+        self.rgbr= hex(r)[2:].zfill(2)+hex(g)[2:].zfill(2)+hex(b)[2:].zfill(2)
+       
+    # def get_color(self):
+    #     color = get_color_from_hex(self.rgbr)
+    #     color[3]=self.alpha
+    #     print "color"
+    #     print color
+    #     return color
+        
+
+    
             
     
 if __name__ == '__main__':
@@ -49,6 +90,7 @@ if __name__ == '__main__':
 
         def build(self):
             return Builder.load_string("""#:import MDSlider kivymd.slider.MDSlider
+        #:import MDLabel kivymd.label.MDLabel
 BoxLayout:
     orientation:'vertical'
     padding: '8dp'
@@ -56,22 +98,39 @@ BoxLayout:
         id:slider
         min:0
         max:100
-        value: 40
+        value: 10
         
     MDProgressBar:
         value: slider.value
+        rgbr:"00FF00"
     MDProgressBar:
         reversed: True
         value: slider.value
+        rgbr:"00FFFF"
     BoxLayout:
         MDProgressBar:
             orientation:"vertical"
-            reversed: True
+            reversed: False
             value: slider.value
+            rgbr:"FFFF00"
+            test: True
+            alpha:.7
             
         MDProgressBar:
             orientation:"vertical"
             value: slider.value
+            reversed:True
+            rgbr:"00ff77"
+
+        MDLabel:
+            text: str(slider.value)
+            theme_text_color: 'Primary'
+            font_style:"Caption"
+            size_hint_y: None
+            halign: 'center'
+            height: self.texture_size[1] + dp(64)
+
+            
         
 """)
             
