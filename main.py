@@ -284,18 +284,18 @@ NavigationLayout:
                         RelativeLayout:
                             MapView:
                                 id: mapview
-                                lat: 34.0605645
-                                lon: -118.4571973
-                                zoom: 15
+                                lat: 34.069886
+                                lon: -118.442950
+                                zoom: 16
                                 # size_hint: .5, .5
                                 # pos_hint: {"x": .25, "y": .25}
 
                                 # on_map_relocated: mapview2.sync_to(self)
                                 # on_map_relocated: mapview3.sync_to(self)
 
-                                # MapMarker:
-                                #     lat: 34.0605645
-                                #     lon: -118.4571973
+                                MapMarker:
+                                    lat: 34.069886
+                                    lon: -118.442950
 
                                 # MapMarker
                                 #     lat: -33.867
