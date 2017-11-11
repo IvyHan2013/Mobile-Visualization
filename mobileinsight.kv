@@ -31,8 +31,6 @@
 #:import MDBottomNavigationItem kivymd.tabs.MDBottomNavigationItem
 #:import Toolbar kivymd.toolbar.Toolbar
 
-#:import MapSource mapview.MapSource
-
 NavigationLayout:
     id: nav_layout
     MDNavigationDrawer:
@@ -65,13 +63,13 @@ NavigationLayout:
             text: "Data/Voice Service"
             #on_release: app.root.ids.scr_mngr.current = 'datavoice'; app.root.ids.toolbar.title = self.text
             on_release:app.go_screen(4); app.root.ids.toolbar.title = self.text
-        
+
         NavigationDrawerIconButton:
             icon: 'settings'
             text: "Change Themes"
             #on_release: app.root.ids.scr_mngr.current = 'theming'; app.root.ids.toolbar.title = self.text
             on_release:app.go_screen(5); app.root.ids.toolbar.title = self.text
-    
+
     BoxLayout:
         orientation: 'vertical'
         Toolbar:
@@ -84,4 +82,3 @@ NavigationLayout:
             right_action_items: [['dots-vertical', lambda x: app.root.toggle_nav_drawer()]]
         ScreenManager:
             id: scr_mngr
-           
