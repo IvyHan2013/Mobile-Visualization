@@ -22,6 +22,8 @@ from kivymd.theming import ThemeManager
 from kivymd.time_picker import MDTimePicker
 import screens
 
+from kivy.clock import Clock
+import random
 
 class HackedDemoNavDrawer(MDNavigationDrawer):
     # DO NOT USE
@@ -47,10 +49,25 @@ class MobileInsightApp(App):
     index = NumericProperty(1)
     current_title = StringProperty()
     screen_names = ListProperty([])
+    rvalue1 = NumericProperty(40)
+    rvalue2 = NumericProperty(40)
+    rvalue3 = NumericProperty(40)
+
+    def callback(self,dt):
+        self.rvalue1 =round(random.random()*100,2)
+        self.rvalue2 =round(random.random()*100,2)
+        self.rvalue3 =round(random.random()*100,2)
+           # print self.rvalue
+    def on_rvalue1(self,instance,value):
+        pass
+    def on_rvalue2(self,instance,value):
+        pass
+    def on_rvalue3(self,instance,value):
+        pass
 
     def build(self):
         
-
+        Clock.schedule_interval(self.callback, 1)
         self.screens = {}
         self.available_screens = screens.__all__
         self.screen_names = self.available_screens

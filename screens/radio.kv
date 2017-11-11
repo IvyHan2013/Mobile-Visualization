@@ -54,7 +54,7 @@
                     BoxLayout:
                         size_hint_y: None
                         MDLabel:
-                            text: '-90dbm'
+                            text: str(app.rvalue1)+'dbm'
                             theme_text_color: 'Primary'
                             font_style:"Body2"
                             size_hint_y: None
@@ -77,17 +77,17 @@
                     BoxLayout:
                         size_hint_y: None
                         MDProgressBar:
-                            value:22.2
+                            value:app.rvalue1
                             halign: 'center'
                             rgbr: '0000FF'
 
                         MDProgressBar:
-                            value:66.7
+                            value:app.rvalue2
                             halign: 'center'
                             rgbr: '0000FF'
 
                         MDProgressBar:
-                            value:94
+                            value:app.rvalue3
                             halign: 'center'
                             rgbr: '0000FF'
                     BoxLayout:

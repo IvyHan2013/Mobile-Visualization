@@ -6,7 +6,8 @@ from kivy.utils import get_color_from_hex
 from kivymd.color_definitions import colors
 from kivymd.theming import ThemableBehavior
 from kivy.uix.progressbar import ProgressBar
-
+from kivy.clock import Clock
+import random
 
 Builder.load_string('''
 #:import get_color_from_hex kivy.utils.get_color_from_hex
@@ -87,8 +88,17 @@ if __name__ == '__main__':
     
     class ProgressBarApp(App):
         theme_cls = ThemeManager()
+        rvalue = NumericProperty(40)
+
+        def callback(self,dt):
+            self.rvalue =random.random()*100
+            print self.rvalue
+        def on_rvalue(self,instance,value):
+             pass
+
 
         def build(self):
+            Clock.schedule_interval(self.callback, 1)
             return Builder.load_string("""#:import MDSlider kivymd.slider.MDSlider
         #:import MDLabel kivymd.label.MDLabel
 BoxLayout:
@@ -101,11 +111,11 @@ BoxLayout:
         value: 10
         
     MDProgressBar:
-        value: slider.value
+        value: app.rvalue
         rgbr:"00FF00"
     MDProgressBar:
         reversed: True
-        value: slider.value
+        value: app.rvalue
         rgbr:"00FFFF"
     BoxLayout:
         MDProgressBar:
@@ -123,7 +133,7 @@ BoxLayout:
             rgbr:"00ff77"
 
         MDLabel:
-            text: str(slider.value)
+            text: str(app.rvalue)
             theme_text_color: 'Primary'
             font_style:"Caption"
             size_hint_y: None
