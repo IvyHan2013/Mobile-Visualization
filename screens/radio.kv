@@ -13,7 +13,8 @@
                 BoxLayout:
                     orientation:'vertical'
                     size_hint_y: None
-                    height: dp(408)
+                    # height: dp(310)
+                    height: dp(350)
                     MDLabel:
                         text: 'Link Capacity: 23'
                         theme_text_color: 'Primary'
@@ -30,66 +31,67 @@
                         halign: 'center'
                     BoxLayout:
                         size_hint_y: None
-                        MDLabel:
-                            text: 'RSSI'
-                            theme_text_color: 'Primary'
-                            font_style:"Caption"
-                            size_hint_y: None
-                            halign: 'center'
-                            height: self.texture_size[1] + dp(6)
-                        MDLabel:
-                            text: 'RSRP'
-                            theme_text_color: 'Primary'
-                            font_style:"Caption"
-                            size_hint_y: None
-                            halign: 'center'
-                            height: self.texture_size[1] + dp(6)
-                        MDLabel:
-                            text: 'RSRQ'
-                            theme_text_color: 'Primary'
-                            font_style:"Caption"
-                            size_hint_y: None
-                            halign: 'center'
-                            height: self.texture_size[1] + dp(6)
-                    BoxLayout:
-                        size_hint_y: None
-                        MDLabel:
-                            text: str(app.rvalue1)+'dbm'
-                            theme_text_color: 'Primary'
-                            font_style:"Body2"
-                            size_hint_y: None
-                            halign: 'center'
-                            height: self.texture_size[1]+ dp(6)
-                        MDLabel:
-                            text: '-74dbm'
-                            theme_text_color: 'Primary'
-                            font_style:"Body2"
-                            size_hint_y: None
-                            halign: 'center'
-                            height: self.texture_size[1]+ dp(6)
-                        MDLabel:
-                            text: '-4'
-                            theme_text_color: 'Primary'
-                            font_style:"Body2"
-                            size_hint_y: None
-                            halign: 'center'
-                            height: self.texture_size[1]+dp(6)
-                    BoxLayout:
-                        size_hint_y: None
-                        MDProgressBar:
-                            value:app.rvalue1
-                            halign: 'center'
-                            rgbr: '0000FF'
-
-                        MDProgressBar:
-                            value:app.rvalue2
-                            halign: 'center'
-                            rgbr: '0000FF'
-
-                        MDProgressBar:
-                            value:app.rvalue3
-                            halign: 'center'
-                            rgbr: '0000FF'
+                        height: dp(70)
+                        BoxLayout:
+                            orientation: 'vertical'
+                            MDLabel:
+                                text: 'RSSI'
+                                theme_text_color: 'Primary'
+                                font_style:"Caption"
+                                size_hint_y: None
+                                halign: 'center'
+                                height: dp(25)
+                            MDProgressBar:
+                                value:app.rvalue1
+                                halign: 'center'
+                                rgbr: '0000FF'
+                            MDLabel:
+                                text: str(app.rvalue1)+'dbm'
+                                theme_text_color: 'Primary'
+                                font_style:"Body2"
+                                size_hint_y: None
+                                halign: 'center'
+                                height: dp(10)
+                        BoxLayout:
+                            orientation: 'vertical'
+                            MDLabel:
+                                text: 'RSRP'
+                                theme_text_color: 'Primary'
+                                font_style:"Caption"
+                                size_hint_y: None
+                                halign: 'center'
+                                height: dp(25)
+                            MDProgressBar:
+                                value:app.rvalue2
+                                halign: 'center'
+                                rgbr: '0000FF'
+                            MDLabel:
+                                text: '-74dbm'
+                                theme_text_color: 'Primary'
+                                font_style:"Body2"
+                                size_hint_y: None
+                                halign: 'center'
+                                height: dp(10)
+                        BoxLayout:
+                            orientation: 'vertical'
+                            MDLabel:
+                                text: 'RSRQ'
+                                theme_text_color: 'Primary'
+                                font_style:"Caption"
+                                size_hint_y: None
+                                halign: 'center'
+                                height: dp(25)
+                            MDProgressBar:
+                                value:app.rvalue3
+                                halign: 'center'
+                                rgbr: '0000FF'
+                            MDLabel:
+                                text: '-4'
+                                theme_text_color: 'Primary'
+                                font_style:"Body2"
+                                size_hint_y: None
+                                halign: 'center'
+                                height: dp(10)
                     BoxLayout:
                         size_hint_y: None
                         MDLabel:
@@ -98,14 +100,14 @@
                             font_style:"Caption"
                             size_hint_y: None
                             halign: 'center'
-                            height: self.texture_size[1] + dp(64)
+                            height: self.texture_size[1] + dp(30)
                         MDLabel:
                             text: 'EcNOc'
                             theme_text_color: 'Primary'
                             font_style:"Caption"
                             size_hint_y: None
                             halign: 'center'
-                            height: self.texture_size[1] + dp(64)
+                            height: self.texture_size[1] + dp(30)
                     # BoxLayout:
                     #     size_hint_y: None
                     #     MDProgressBar:
